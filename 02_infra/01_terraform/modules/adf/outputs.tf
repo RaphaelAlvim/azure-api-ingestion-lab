@@ -1,0 +1,18 @@
+# ============================================================
+# Outputs — module: adf
+# ============================================================
+
+output "data_factory_name" {
+  description = "Name of the created Data Factory."
+  value       = azurerm_data_factory.this.name
+}
+
+output "data_factory_id" {
+  description = "ID of the created Data Factory."
+  value       = azurerm_data_factory.this.id
+}
+
+output "data_factory_principal_id" {
+  description = "Principal ID of the ADF System Assigned Identity."
+  value       = azurerm_data_factory.this.identity[0].principal_id
+}
