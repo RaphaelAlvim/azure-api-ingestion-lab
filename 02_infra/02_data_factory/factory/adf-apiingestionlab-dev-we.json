@@ -1,0 +1,15 @@
+{
+	"name": "adf-apiingestionlab-dev-we",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "fbc4494d-ec09-40db-a573-2823073b3372",
+		"tenantId": "803c59c2-7eaa-47dd-ba1d-661cb7860c59"
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"name": "ls_hubspot_api",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://api.hubapi.com",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous",
+			"authHeaders": {
+				"Authorization": {
+					"type": "AzureKeyVaultSecret",
+					"store": {
+						"referenceName": "ls_keyvault",
+						"type": "LinkedServiceReference"
+					},
+					"secretName": "hubspot-access-token"
+				}
+			}
+		}
+	}
+}
