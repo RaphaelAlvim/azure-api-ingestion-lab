@@ -28,6 +28,7 @@ module "adls" {
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
   containers          = var.storage_containers
+  adf_principal_id    = module.adf.data_factory_principal_id
   tags                = var.tags
 }
 

@@ -19,3 +19,9 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "this" {
   name               = each.value
   storage_account_id = azurerm_storage_account.this.id
 }
+
+resource "azurerm_role_assignment" "adf_storage" {
+  scope                = azurerm_storage_account.this.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = var.adf_principal_id
+}
