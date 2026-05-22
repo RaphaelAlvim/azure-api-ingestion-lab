@@ -27,3 +27,8 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "adf_principal_id" {
+  description = "Principal ID of the ADF Managed Identity."
+  type        = string
+}
