@@ -26,3 +26,13 @@ output "data_factory_principal_id" {
   description = "Principal ID of the ADF System Assigned Identity."
   value       = module.adf.data_factory_principal_id
 }
+
+output "key_vault_name" {
+  description = "Name of the created Key Vault."
+  value       = module.key_vault.key_vault_name
+}
+
+output "key_vault_uri" {
+  description = "URI of the created Key Vault."
+  value       = module.key_vault.key_vault_uri
+}

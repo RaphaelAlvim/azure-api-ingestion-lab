@@ -40,3 +40,13 @@ module "adf" {
   location            = module.resource_group.location
   tags                = var.tags
 }
+
+module "key_vault" {
+  source = "./modules/key_vault"
+
+  project_name        = var.project_name
+  environment         = var.environment
+  resource_group_name = module.resource_group.resource_group_name
+  location            = module.resource_group.location
+  tags                = var.tags
+}
