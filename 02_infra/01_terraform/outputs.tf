@@ -36,3 +36,18 @@ output "key_vault_uri" {
   description = "URI of the created Key Vault."
   value       = module.key_vault.key_vault_uri
 }
+
+output "sql_server_name" {
+  description = "Name of the created SQL Server."
+  value       = module.azure_sql.sql_server_name
+}
+
+output "sql_server_fqdn" {
+  description = "Fully qualified domain name of the SQL Server."
+  value       = module.azure_sql.sql_server_fqdn
+}
+
+output "sql_database_name" {
+  description = "Name of the created SQL Database."
+  value       = module.azure_sql.sql_database_name
+}

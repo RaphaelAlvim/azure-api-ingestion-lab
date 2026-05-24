@@ -35,11 +35,13 @@ module "adls" {
 module "adf" {
   source = "./modules/adf"
 
-  project_name        = var.project_name
-  environment         = var.environment
-  resource_group_name = module.resource_group.resource_group_name
-  location            = module.resource_group.location
-  tags                = var.tags
+  project_name           = var.project_name
+  environment            = var.environment
+  resource_group_name    = module.resource_group.resource_group_name
+  location               = module.resource_group.location
+  github_account_name    = var.github_account_name
+  github_repository_name = var.github_repository_name
+  tags                   = var.tags
 }
 
 module "key_vault" {
@@ -50,5 +52,17 @@ module "key_vault" {
   resource_group_name = module.resource_group.resource_group_name
   location            = module.resource_group.location
   adf_principal_id    = module.adf.data_factory_principal_id
+  tags                = var.tags
+}
+
+module "azure_sql" {
+  source = "./modules/azure_sql"
+
+  project_name        = var.project_name
+  environment         = var.environment
+  resource_group_name = module.resource_group.resource_group_name
+  location            = module.resource_group.location
+  sql_admin_login     = var.sql_admin_login
+  sql_admin_password  = var.sql_admin_password
   tags                = var.tags
 }

@@ -34,3 +34,24 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "sql_admin_login" {
+  description = "Administrator login for the SQL Server."
+  type        = string
+}
+
+variable "sql_admin_password" {
+  description = "Administrator password for the SQL Server."
+  type        = string
+  sensitive   = true
+}
+
+variable "github_account_name" {
+  description = "GitHub account name for ADF Git Integration."
+  type        = string
+}
+
+variable "github_repository_name" {
+  description = "GitHub repository name for ADF Git Integration."
+  type        = string
+}

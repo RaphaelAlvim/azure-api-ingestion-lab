@@ -1,5 +1,5 @@
 # ============================================================
-# Variables — module: adf
+# Variables — module: azure_sql
 # ============================================================
 
 variable "project_name" {
@@ -13,7 +13,7 @@ variable "environment" {
 }
 
 variable "resource_group_name" {
-  description = "Name of the Resource Group where ADF will be created."
+  description = "Name of the Resource Group where SQL will be created."
   type        = string
 }
 
@@ -22,18 +22,19 @@ variable "location" {
   type        = string
 }
 
+variable "sql_admin_login" {
+  description = "Administrator login for the SQL Server."
+  type        = string
+}
+
+variable "sql_admin_password" {
+  description = "Administrator password for the SQL Server."
+  type        = string
+  sensitive   = true
+}
+
 variable "tags" {
   description = "Standard tags applied to all resources."
   type        = map(string)
   default     = {}
-}
-
-variable "github_account_name" {
-  description = "GitHub account name for ADF Git Integration."
-  type        = string
-}
-
-variable "github_repository_name" {
-  description = "GitHub repository name for ADF Git Integration."
-  type        = string
 }
