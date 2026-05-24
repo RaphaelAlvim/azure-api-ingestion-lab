@@ -32,12 +32,13 @@
 				"activities": [
 					{
 						"name": "copy_hubspot_contacts_to_raw",
+						"description": "Ingests all HubSpot contacts from REST API and lands raw JSON into ADLS Gen2 raw layer.",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
+							"timeout": "0.00:30:00",
+							"retry": 3,
+							"retryIntervalInSeconds": 60,
 							"secureOutput": false,
 							"secureInput": false
 						},
@@ -46,7 +47,7 @@
 							"source": {
 								"type": "RestSource",
 								"httpRequestTimeout": "00:01:40",
-								"requestInterval": "00.00:00:00.010",
+								"requestInterval": "00.00:00:01.000",
 								"requestMethod": "GET",
 								"paginationRules": {
 									"AbsoluteUrl": "$.$.paging.next.link"
@@ -63,7 +64,23 @@
 									"filePattern": "setOfObjects"
 								}
 							},
-							"enableStaging": false
+							"enableStaging": false,
+							"parallelCopies": 1,
+							"enableSkipIncompatibleRow": true,
+							"logSettings": {
+								"enableCopyActivityLog": true,
+								"copyActivityLogSettings": {
+									"logLevel": "Warning",
+									"enableReliableLogging": false
+								},
+								"logLocationSettings": {
+									"linkedServiceName": {
+										"referenceName": "ls_adls",
+										"type": "LinkedServiceReference"
+									},
+									"path": "raw/hubspot/logs/contacts"
+								}
+							}
 						},
 						"inputs": [
 							{
@@ -76,7 +93,10 @@
 							{
 								"referenceName": "ds_adls_raw_json",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"file_name": "@{concat('contacts_',formatDateTime(utcNow(),'yyyyMMdd_HHmmss'),'.json')}",
+									"folder_date": "@{formatDateTime(utcNow(),'yyyy/MM/dd')}"
+								}
 							}
 						]
 					}
@@ -88,7 +108,8 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_hubspot_contacts')]",
-				"[concat(variables('factoryId'), '/datasets/ds_adls_raw_json')]"
+				"[concat(variables('factoryId'), '/datasets/ds_adls_raw_json')]",
+				"[concat(variables('factoryId'), '/linkedServices/ls_adls')]"
 			]
 		},
 		{
@@ -100,13 +121,24 @@
 					"referenceName": "ls_adls",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"file_name": {
+						"type": "String"
+					},
+					"folder_date": {
+						"type": "String"
+					}
+				},
 				"annotations": [],
 				"type": "Json",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "contacts",
-						"folderPath": "hubspot",
+						"fileName": {
+							"value": "@{dataset().file_name}",
+							"type": "Expression"
+						},
+						"folderPath": "hubspot/contacts/@{dataset().folder_date}",
 						"fileSystem": "raw"
 					}
 				},
