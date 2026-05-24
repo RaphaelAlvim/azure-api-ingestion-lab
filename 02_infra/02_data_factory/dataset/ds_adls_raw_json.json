@@ -8,6 +8,9 @@
 		"parameters": {
 			"file_name": {
 				"type": "String"
+			},
+			"folder_date": {
+				"type": "String"
 			}
 		},
 		"annotations": [],
@@ -15,8 +18,11 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "contacts",
-				"folderPath": "hubspot",
+				"fileName": {
+					"value": "@{dataset().file_name}",
+					"type": "Expression"
+				},
+				"folderPath": "hubspot/contacts/@{dataset().folder_date}",
 				"fileSystem": "raw"
 			}
 		},
