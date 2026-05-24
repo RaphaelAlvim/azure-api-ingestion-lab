@@ -63,7 +63,11 @@
 				"outputs": [
 					{
 						"referenceName": "ds_adls_raw_json",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"file_name": "@{concat('contacts_',formatDateTime(utcNow(),'yyyyMMdd_HHmmss'),'.json')}",
+							"folder_date": "@{formatDateTime(utcNow(),'yyyy/MM/dd')}"
+						}
 					}
 				]
 			}
